@@ -1,0 +1,94 @@
+@import "@heroui/styles";
+
+/* ============================================================
+   Diana — DIAN SNACK
+   Palet: krem kertas roti, coklat kulit roti, merah selai.
+   Sengaja tidak pakai cyan/ungu neon ala template AI.
+   ============================================================ */
+
+@theme {
+  --color-diana-kertas: #faf6ef;
+  --color-diana-remah: #f0e8db;
+  --color-diana-kulit: #6b4a2f;
+  --color-diana-panggang: #8a5a2b;
+  --color-diana-selai: #9b2c2c;
+  --color-diana-daun: #3f5e3f;
+}
+
+/* Angka uang rata kanan & tabular figure biar kolomnya lurus */
+.duit {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+  letter-spacing: -0.01em;
+}
+
+/* Panel masuk: fade + naik, spring. Dipakai di setiap ganti tab. */
+@keyframes panel-in {
+  from { opacity: 0; transform: translateY(14px) scale(0.99); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.panel-in { animation: panel-in 320ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.panel-in > * { animation: rise-in 340ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+.panel-in > *:nth-child(1) { animation-delay: 15ms; }
+.panel-in > *:nth-child(2) { animation-delay: 55ms; }
+.panel-in > *:nth-child(3) { animation-delay: 95ms; }
+.panel-in > *:nth-child(4) { animation-delay: 135ms; }
+.panel-in > *:nth-child(5) { animation-delay: 175ms; }
+
+/* Tekstur kertas roti: titik halus, bukan gradient blob */
+.kertas {
+  background-color: var(--color-diana-kertas);
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(107, 74, 47, 0.09) 1px, transparent 0);
+  background-size: 14px 14px;
+}
+
+.garis-kas {
+  height: 1px;
+  opacity: 0.25;
+  background-image: repeating-linear-gradient(
+    to right, currentColor 0 6px, transparent 6px 12px);
+}
+
+[role="tab"] {
+  transition: color 200ms ease, background-color 200ms ease, transform 150ms ease;
+  -webkit-tap-highlight-color: transparent;
+}
+[role="tab"]:active { transform: scale(0.96); }
+
+button {
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 120ms ease, opacity 120ms ease;
+}
+button:active { transform: scale(0.975); }
+
+.switch__control {
+  transition: background-color 250ms cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 250ms ease !important;
+}
+.switch__thumb {
+  transition: transform 250ms cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+/* Tombol catat cepat: besar, buat jempol */
+.tombol-cepat { min-height: 3.25rem; }
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(107, 74, 47, 0.28) transparent;
+}
+*::-webkit-scrollbar { width: 8px; height: 8px; }
+*::-webkit-scrollbar-thumb {
+  background: rgba(107, 74, 47, 0.28);
+  border-radius: 99px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel-in, .panel-in > * { animation: none; }
+  button:active, [role="tab"]:active { transform: none; }
+}
